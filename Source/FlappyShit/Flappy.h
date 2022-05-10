@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Flappy.generated.h"
 
+class AFlappyShitGameModeBase;
+
 UCLASS()
 class FLAPPYSHIT_API AFlappy : public APawn
 {
@@ -16,10 +18,18 @@ class FLAPPYSHIT_API AFlappy : public APawn
 
 	UPROPERTY(EditDefaultsOnly)
 	float JumpForce = 100.f;
+
+	UPROPERTY(VisibleAnywhere)
+	bool bIsDead = false;
 	
 public:
 	// Sets default values for this pawn's properties
 	AFlappy();
+
+	bool GetIsDead() const
+	{
+		return bIsDead;
+	}
 
 protected:
 	// Called when the game starts or when spawned
@@ -37,4 +47,5 @@ private:
 	UFUNCTION()
 	void OnHitComponent(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	                    FVector NormalImpulse, const FHitResult& Hit);
+	AFlappyShitGameModeBase* GetGameMode() const;
 };

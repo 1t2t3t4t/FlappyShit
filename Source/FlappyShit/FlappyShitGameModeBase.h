@@ -7,6 +7,8 @@
 #include "FlappyShitGameModeBase.generated.h"
 
 class APipe;
+class AFlappy;
+class AFlappyGameState;
 
 UCLASS()
 class FLAPPYSHIT_API AFlappyShitGameModeBase : public AGameModeBase
@@ -40,6 +42,9 @@ class FLAPPYSHIT_API AFlappyShitGameModeBase : public AGameModeBase
 	UPROPERTY(EditDefaultsOnly)
 	float ZOffSetStep = 50.f;
 
+	UPROPERTY(VisibleAnywhere)
+	AFlappy* Player;
+
 	FTimerHandle SpawnTimer;
 
 	TArray<APipe*> PendingPipes;
@@ -53,6 +58,8 @@ public:
 	}
 
 	void MarkPipeDeSpawn(APipe* Pipe);
+	void PlayerDead(AFlappy* Target);
+	void IncreaseScore() const;
 
 protected:
 	virtual void BeginPlay() override;
@@ -63,4 +70,6 @@ private:
 	void SpawnPipe();
 	void RandomNextZOffSet();
 	void ActivateMainCam() const;
+
+	AFlappyGameState* GetGameState() const;
 };

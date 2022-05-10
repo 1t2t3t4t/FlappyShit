@@ -3,10 +3,12 @@
 
 #include "Flappy.h"
 
+#include "FlappyShitGameModeBase.h"
 #include "Pipe.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values
@@ -48,8 +50,15 @@ void AFlappy::Jump()
 void AFlappy::OnHitComponent(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                              FVector NormalImpulse, const FHitResult& Hit)
 {
- 	if (OtherActor && OtherActor->ActorHasTag(APipe::Tag))
+	AFlappyShitGameModeBase* GameMode = GetGameMode();
+ 	if (OtherActor && OtherActor->ActorHasTag(APipe::Tag) && GameMode)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Player Dead"));
+ 		bIsDead = true;
+		GameMode->PlayerDead(this);
 	}
+}
+
+AFlappyShitGameModeBase* AFlappy::GetGameMode() const
+{
+	return Cast<AFlappyShitGameModeBase>(UGameplayStatics::GetGameMode(this));
 }

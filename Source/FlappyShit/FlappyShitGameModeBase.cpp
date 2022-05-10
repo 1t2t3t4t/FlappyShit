@@ -4,6 +4,8 @@
 #include "FlappyShitGameModeBase.h"
 
 #include "DrawDebugHelpers.h"
+#include "Flappy.h"
+#include "FlappyGameState.h"
 #include "Pipe.h"
 #include "PipeSpawnPoint.h"
 #include "Camera/CameraActor.h"
@@ -29,6 +31,8 @@ void AFlappyShitGameModeBase::BeginPlay()
 
 	DrawDebugSphere(GetWorld(), FVector(0, 0, -ZSpawnRange), 20.f, 6, FColor::Red, true);
 	DrawDebugSphere(GetWorld(), FVector(0, 0, ZSpawnRange), 20.f, 6, FColor::Red, true);
+
+	Player = Cast<AFlappy>(UGameplayStatics::GetActorOfClass(this, AFlappy::StaticClass()));
 }
 
 void AFlappyShitGameModeBase::SpawnPipeTimerDelegate()
@@ -46,7 +50,7 @@ APipe* AFlappyShitGameModeBase::CreatePipeIfNeeded()
 	{
 		return PendingPipes.Pop();
 	}
-	
+
 	APipe* NewPipe = GetWorld()->SpawnActor<APipe>(PipeClass, PipeSpawnPoint->GetActorLocation(), FRotator::ZeroRotator);
 	NewPipe->SetMovement(PipeMovement);
 	NewPipe->SetOwner(this);
@@ -89,8 +93,32 @@ void AFlappyShitGameModeBase::ActivateMainCam() const
 	}
 }
 
+AFlappyGameState* AFlappyShitGameModeBase::GetGameState() const
+{
+	return Cast<AFlappyGameState>(GameState);
+}
+
 void AFlappyShitGameModeBase::MarkPipeDeSpawn(APipe* Pipe)
 {
 	CurrentPipes.Remove(Pipe);
 	PendingPipes.AddUnique(Pipe);
+}
+
+void AFlappyShitGameModeBase::PlayerDead(AFlappy* Target)
+{
+	if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
+	{
+		Target->DisableInput(PlayerController);
+	}
+}
+
+void AFlappyShitGameModeBase::IncreaseScore() const
+{
+	if (Player && !Player->GetIsDead())
+	{
+		if (AFlappyGameState* FlappyGameState = GetGameState())
+		{
+			FlappyGameState->IncreaseScore();
+		}
+	}
 }

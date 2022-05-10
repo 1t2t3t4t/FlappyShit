@@ -45,6 +45,7 @@ void AFlappy::Jump()
 {
 	const FVector JumpForceVec = GetActorUpVector() * JumpForce;
 	SphereComponent->AddImpulse(JumpForceVec);
+	JumpEffect();
 }
 
 void AFlappy::OnHitComponent(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
@@ -55,6 +56,7 @@ void AFlappy::OnHitComponent(UPrimitiveComponent* HitComponent, AActor* OtherAct
 	{
  		bIsDead = true;
 		GameMode->PlayerDead(this);
+ 		OnDead();
 	}
 }
 

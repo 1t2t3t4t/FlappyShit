@@ -43,6 +43,12 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void Jump();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void JumpEffect();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDead();
+
 private:
 	UFUNCTION()
 	void OnHitComponent(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,

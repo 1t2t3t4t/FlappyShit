@@ -72,11 +72,11 @@ void APipe::Tick(float DeltaTime)
 void APipe::ScoreTriggerOnLeave(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
                                 UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	if (OtherActor)
+	if (OtherActor && GameMode)
 	{
 		if (OtherActor->ActorHasTag(TEXT("Player")))
 		{
- 			UE_LOG(LogTemp, Warning, TEXT("Got Poiunt"));
+ 			GameMode->IncreaseScore();
 		}
 	}
 }

@@ -21,6 +21,6 @@ public:
 	{
 		return Score;
 	}
-	
-	void IncreaseScore();
+
+	int32 IncreaseScore();
 };

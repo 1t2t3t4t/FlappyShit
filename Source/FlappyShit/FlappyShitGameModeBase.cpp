@@ -5,6 +5,7 @@
 
 #include "DrawDebugHelpers.h"
 #include "Flappy.h"
+#include "FlappyController.h"
 #include "FlappyGameState.h"
 #include "Pipe.h"
 #include "PipeSpawnPoint.h"
@@ -118,7 +119,11 @@ void AFlappyShitGameModeBase::IncreaseScore() const
 	{
 		if (AFlappyGameState* FlappyGameState = GetGameState())
 		{
-			FlappyGameState->IncreaseScore();
+			const int32 Score = FlappyGameState->IncreaseScore();
+			if (const AFlappyController* PlayerController = Cast<AFlappyController>(GetWorld()->GetFirstPlayerController()))
+			{
+				PlayerController->IncreasePlayerScore(Score);
+			}
 		}
 	}
 }

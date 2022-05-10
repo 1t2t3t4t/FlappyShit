@@ -8,7 +8,7 @@ AFlappyGameState::AFlappyGameState()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-void AFlappyGameState::IncreaseScore()
+int32 AFlappyGameState::IncreaseScore()
 {
-	Score++;
+	return ++Score;
 }

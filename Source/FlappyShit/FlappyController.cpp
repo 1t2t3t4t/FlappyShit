@@ -3,24 +3,7 @@
 
 #include "FlappyController.h"
 
-
-// Sets default values
 AFlappyController::AFlappyController()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
-
-// Called when the game starts or when spawned
-void AFlappyController::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void AFlappyController::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-

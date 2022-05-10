@@ -76,7 +76,7 @@ void APipe::ScoreTriggerOnLeave(UPrimitiveComponent* OverlappedComponent, AActor
 	{
 		if (OtherActor->ActorHasTag(TEXT("Player")))
 		{
- 			GameMode->IncreaseScore();
+			GameMode->IncreaseScore();
 		}
 	}
 }

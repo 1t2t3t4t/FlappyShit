@@ -39,9 +39,6 @@ class FLAPPYSHIT_API AFlappyShitGameModeBase : public AGameModeBase
 	UPROPERTY(EditDefaultsOnly)
 	float ZSpawnRange = 450.f;
 
-	UPROPERTY(EditDefaultsOnly)
-	float ZOffSetStep = 50.f;
-
 	UPROPERTY(VisibleAnywhere)
 	AFlappy* Player;
 
